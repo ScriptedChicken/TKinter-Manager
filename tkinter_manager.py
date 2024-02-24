@@ -20,15 +20,16 @@ class TKinterManager(object):
     def run(self):
         self.root.mainloop()
 
-    def add_element(self, element_name, element_type, label_text=None, hook_function=None, values=None):
+    def add_element(self, element_name, element_type, label_text=None, hook_function=None, values=None, show_label=True):
         # TODO - add in functionality for optional labels
         label_name = f"{element_name}_label"
         label = LabelManager(self.root, label_name)
-        if label_text:
-            label.set(label_text, clean_text=True)
-        else:
-            label.set(element_name, clean_text=True)
-        self.elements_dict[label_name] = label
+        if show_label:
+            if label_text:
+                label.set(label_text)
+            else:
+                label.set(element_name)
+            self.elements_dict[label_name] = label
         
         if element_type == "button":
             element = ButtonManager(self.root, element_name, hook_function)
@@ -44,7 +45,7 @@ class TKinterManager(object):
 
         elif element_type == "label":
             element = LabelManager(self.root, element_name)
-            
+
         elif element_type in ["checkboxes", "radio_buttons"]:
             element = ContainerManager(self.root, element_name, element_type, values)
 
