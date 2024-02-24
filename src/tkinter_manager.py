@@ -21,7 +21,10 @@ class TKinterManager(object):
         self.root.mainloop()
 
     def add_element(self, element_name, element_type, label_text=None, hook_function=None, values=None, show_label=True):
-        # TODO - add in functionality for optional labels
+        is_duplicate_element = element_name in self.elements_dict
+        if is_duplicate_element:
+            raise Exception(f"Multiple elements with name of '{element_name}' - rename your elements so they are unique.")
+
         label_name = f"{element_name}_label"
         label = LabelManager(self.root, label_name)
         if show_label:
