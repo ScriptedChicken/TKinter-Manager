@@ -1,8 +1,8 @@
-from tkinter_element import TKinterElement
+from .tkinter_element import TKinterElement
 from tkinter.ttk import Frame
 from tkinter import StringVar
-from checkbox_manager import CheckboxManager
-from radio_button_manager import RadioButtonManager
+from .checkbox_manager import CheckboxManager
+from .radio_button_manager import RadioButtonManager
 
 class ContainerManager(TKinterElement):
     def __init__(self, root, element_name, children_type, values):

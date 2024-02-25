@@ -1,6 +1,6 @@
-from tkinter_element import TKinterElement
+from .tkinter_element import TKinterElement
 from tkinter.ttk import Button
-from utils import return_clean_text
+from .utils import return_clean_text
 
 class ButtonManager(TKinterElement):
     def __init__(self, root, element_name, hook_function):

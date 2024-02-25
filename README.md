@@ -29,7 +29,7 @@ manager.add_element(
 Button
 ```
 manager.add_element(
-	element_name='Start Button',
+	element_name='start_button',
 	element_type='button',
 	hook_function=app.execute
 )
@@ -38,7 +38,7 @@ manager.add_element(
 Dropdown
 ```
 manager.add_element(
-	element_name='Category',
+	element_name='category',
 	element_type='dropdown',
     values=['A', 'B', 'C']
 )
@@ -47,7 +47,7 @@ manager.add_element(
 Label
 ```
 manager.add_element(
-	element_name='Message Box',
+	element_name='message_box',
 	element_type='label',
 )
 ```
@@ -55,7 +55,7 @@ manager.add_element(
 Progress Bar
 ```
 manager.add_element(
-	element_name='Progress Bar',
+	element_name='progress_bar',
 	element_type='progress_bar',
 )
 ```
@@ -63,7 +63,7 @@ manager.add_element(
 Text Input
 ```
 manager.add_element(
-	element_name='Username',
+	element_name='username',
 	element_type='text_input',
 )
 ```
@@ -73,7 +73,7 @@ manager.add_element(
 Checkboxes
 ```
 manager.add_element(
-	element_name='Food Order',
+	element_name='food_order',
 	element_type='checkboxes',
 	values=['Fish', 'Chips', 'Tomato Sauce']
 )
@@ -82,52 +82,29 @@ manager.add_element(
 Radio Buttons
 ```
 manager.add_element(
-	element_name='Drinks Order',
+	element_name='drinks_order',
 	element_type='radio_buttons',
     values=['Tea', 'Coffee', 'Milo']
 )
 ```
 
 ### Adding labels
-By default, labels are added automatically for each element you add to your TKinter Manager GUI. The name of a label is specified by the name that you choose for your element.  
+To add an element, specify the `label_text` argument.
 
 ```
 manager.add_element(
-	element_name='Username',
+	element_name='username',
 	element_type='text_input',
+	label_text='Enter a username:'
 )
 ```
 
-![Adding a label automatically](img/automatic_label.jpg)
-
-To change a label's default text, set the `label_text` argument:
-
-```
-manager.add_element(
-	element_name='Username',
-	element_type='text_input',
-    label_text='Enter a username:'
-)
-```
-
-![Adding a label with custom text](img/label_text.jpg)
-
-To not show a label for an element, set the `show_label` argument:
-
-```
-manager.add_element(
-	element_name='Username',
-	element_type='text_input',
-    show_label=False
-)
-```
-
-![Hiding a label](img/no_label.jpg)
+![Adding a label to an element](img/label_text.jpg)
 
 ### Accessing an element
 To access an element, use the `manager.get_element()` method:
 ```
-name = "Notes"
+name = "notes"
 manager.add_element(
 	element_name=name,
 	element_type='text_input'
@@ -137,12 +114,11 @@ name_element = manager.get_element(name)
 
 Automatically-added labels can be accessed with the parent element name + "\_label".
 ```
-name = "Progress Bar"
-label_text = "Progress so far..."
+name = "progress_bar"
 manager.add_element(
 	element_name=name,
 	element_type='progress_bar',
-    label_text=label_text
+    label_text='Progress so far...'
 )
 progress_bar_label = manager.get_element(f"{name}_label")
 ```
@@ -154,21 +130,23 @@ To centre all added elements, use the `manager.centre_elements()` method. This a
 ```
 manager = TKinterManager("This is the title")
 manager.add_element(
-	element_name='Category',
+	element_name='category',
 	element_type='dropdown',
+	label_text='Category'
     values=['A', 'B', 'C']
 )
 manager.add_element(
-	element_name='Username',
+	element_name='username',
 	element_type='text_input',
+	label_text='Username'
 )
 manager.add_element(
-	element_name='Notes',
+	element_name='notes',
 	element_type='text_input',
 	label_text='Enter notes'
 )
 manager.add_element(
-	element_name='Start Button',
+	element_name='start_button',
 	element_type='button',
 	hook_function=app.execute
 )
@@ -183,35 +161,40 @@ To explicitly specify an element's place in a grid, use the `manager.set_layout(
 ```
 manager = TKinterManager("This is the title")
 manager.add_element(
-	element_name='Category',
+	element_name='category',
 	element_type='dropdown',
+	label_test='Category',
     values=['A', 'B', 'C']
 )
 manager.add_element(
-	element_name='Username',
+	element_name='username',
 	element_type='text_input',
+	label_test='Username',
 )
 manager.add_element(
-	element_name='Notes',
+	element_name='notes',
 	element_type='text_input',
 	label_text='Enter notes'
 )
 manager.add_element(
-	element_name='Start Button',
+	element_name='start_button',
 	element_type='button',
 	hook_function=app.execute
 )
 layout = [
-    ["Category_label", "Category",],
-    ["Username_label", "Username"],
-    ["Notes_label", "Notes"],
-    [None, "Start Button"],
+    ["category_label", "category",],
+    ["username_label", "username"],
+    ["notes_label", "notes"],
+    [None, "start_button"],
 ]
 manager.set_layout(layout)
 manager.run()
 ```
 
 ![Explicitly setting a layout](img/set_layout.jpg)
+
+### Element names
+When naming elements, the only limitation is that each element must have a unique name. While you can name them anything, it is recommended that a `snake_case` naming style is used.
 
 ## Full example
 See [the full example code](/examples/full.py) to test it out.  

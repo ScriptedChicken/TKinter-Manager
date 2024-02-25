@@ -1,4 +1,4 @@
-from tkinter_element import TKinterElement
+from .tkinter_element import TKinterElement
 from tkinter.ttk import Combobox
 
 class DropdownManager(TKinterElement):

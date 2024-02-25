@@ -1,4 +1,10 @@
-from tkinter_manager import TKinterManager
+import sys
+import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+
+from src.tkinter_manager import TKinterManager
 
 class App(object):
     def __init__(self, manager):
@@ -7,29 +13,29 @@ class App(object):
         self.recording_progress = False
 
     def execute(self):
-        for name in ['Category', 'Username', 'Notes']:
+        for name in ['category', 'username', 'notes']:
             element = self.manager.get_element(name)
             print(f"{name}: {element.get()}")
 
-        food_container = self.manager.get_element("Food Order")
+        food_container = self.manager.get_element("food_order")
         for value in food_container.get_selected():
             print(f"Checkbox: {value}")
 
-        drinks_container = self.manager.get_element("Drinks Order")
+        drinks_container = self.manager.get_element("drinks_order")
         value = drinks_container.get_selected()
         print(f"Radio: {value}")
 
         if self.recording_progress:
-            self.manager.get_element("Progress Bar").stop()
+            self.manager.get_element("progress_bar").stop()
             self.recording_progress = False
         else:
-            self.manager.get_element("Progress Bar").start()
+            self.manager.get_element("progress_bar").start()
             self.recording_progress = True
 
     def update_count(self):
         self.count += 1
         message = f"Count: {self.count}"
-        self.manager.get_element("Message Box").set(message)
+        self.manager.get_element("message_box").set(message)
         self.manager.root.after(1000, self.update_count)
 
     def set_manager(self, manager):
@@ -41,39 +47,44 @@ manager = TKinterManager(
 app = App(manager)
 
 manager.add_element(
-	element_name='Category',
+	element_name='category',
 	element_type='dropdown',
+    label_text='Category',
     values=['A', 'B', 'C']
 )
 manager.add_element(
-	element_name='Username',
+	element_name='username',
 	element_type='text_input',
+    label_text='Username'
 )
 manager.add_element(
-	element_name='Notes',
+	element_name='notes',
 	element_type='text_input',
 	label_text='Enter notes'
 )
 manager.add_element(
-	element_name='Food Order',
+	element_name='food_order',
 	element_type='checkboxes',
+    label_text='Food order',
 	values=['Fish', 'Chips', 'Tomato Sauce']
 )
 manager.add_element(
-	element_name='Drinks Order',
+	element_name='drinks_order',
 	element_type='radio_buttons',
+    label_text='Drinks order',
     values=['Tea', 'Coffee', 'Milo']
 )
 manager.add_element(
-	element_name='Message Box',
+	element_name='message_box',
 	element_type='label',
 )
 manager.add_element(
-	element_name='Progress Bar',
+	element_name='progress_bar',
 	element_type='progress_bar',
+    label_text='Progress so far...',
 )
 manager.add_element(
-	element_name='Start Button',
+	element_name='start_button',
 	element_type='button',
 	hook_function=app.execute
 )

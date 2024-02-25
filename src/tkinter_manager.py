@@ -1,12 +1,11 @@
 from tkinter import Tk
-from label_manager import LabelManager
-from button_manager import ButtonManager
-from dropdown_manager import DropdownManager
-from text_input_manager import TextInputManager
-from layout_manager import LayoutManager
-from progress_bar_manager import ProgressBarManager
-from label_manager import LabelManager
-from container_manager import ContainerManager
+from .label_manager import LabelManager
+from .button_manager import ButtonManager
+from .dropdown_manager import DropdownManager
+from .text_input_manager import TextInputManager
+from .layout_manager import LayoutManager
+from .progress_bar_manager import ProgressBarManager
+from .container_manager import ContainerManager
 
 class TKinterManager(object):
     def __init__(self, title, width=None, height=None):
@@ -20,18 +19,16 @@ class TKinterManager(object):
     def run(self):
         self.root.mainloop()
 
-    def add_element(self, element_name, element_type, label_text=None, hook_function=None, values=None, show_label=True):
+    def add_element(self, element_name, element_type, label_text=None, hook_function=None, values=None):
         is_duplicate_element = element_name in self.elements_dict
         if is_duplicate_element:
             raise Exception(f"Multiple elements with name of '{element_name}' - rename your elements so they are unique.")
 
         label_name = f"{element_name}_label"
         label = LabelManager(self.root, label_name)
-        if show_label:
-            if label_text:
-                label.set(label_text)
-            else:
-                label.set(element_name)
+
+        if label_text:
+            label.set(label_text)
             self.elements_dict[label_name] = label
         
         if element_type == "button":
