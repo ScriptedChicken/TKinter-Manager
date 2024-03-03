@@ -7,7 +7,7 @@ Clone the repo - no extra libraries needed.
 ## Usage
 To create a new TKinter Manager instance:
 ```
-from tkinter_manager import TKinterManager
+from tkinter_manager.tkinter_manager import TKinterManager
 manager = TKinterManager(
     title="This is the title"
 )
