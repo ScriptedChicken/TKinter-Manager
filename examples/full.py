@@ -1,5 +1,6 @@
 from tkinter_manager.tkinter_manager import TKinterManager
 
+
 class App(object):
     def __init__(self, manager):
         self.manager = manager
@@ -7,7 +8,7 @@ class App(object):
         self.recording_progress = False
 
     def execute(self):
-        for name in ['category', 'username', 'notes']:
+        for name in ["category", "username", "notes"]:
             element = self.manager.get_element(name)
             print(f"{name}: {element.get()}")
 
@@ -35,52 +36,45 @@ class App(object):
     def set_manager(self, manager):
         self.manager = manager
 
-manager = TKinterManager(
-    title="This is the title"
-)
+
+manager = TKinterManager(title="This is the title")
 app = App(manager)
 
 manager.add_element(
-	element_name='category',
-	element_type='dropdown',
-    label_text='Category',
-    values=['A', 'B', 'C']
+    element_name="category",
+    element_type="dropdown",
+    label_text="Category",
+    values=["A", "B", "C"],
 )
 manager.add_element(
-	element_name='username',
-	element_type='text_input',
-    label_text='Username'
+    element_name="username", element_type="text_input", label_text="Username"
 )
 manager.add_element(
-	element_name='notes',
-	element_type='text_input',
-	label_text='Enter notes'
+    element_name="notes", element_type="text_input", label_text="Enter notes"
 )
 manager.add_element(
-	element_name='food_order',
-	element_type='checkboxes',
-    label_text='Food order',
-	values=['Fish', 'Chips', 'Tomato Sauce']
+    element_name="food_order",
+    element_type="checkboxes",
+    label_text="Food order",
+    values=["Fish", "Chips", "Tomato Sauce"],
 )
 manager.add_element(
-	element_name='drinks_order',
-	element_type='radio_buttons',
-    label_text='Drinks order',
-    values=['Tea', 'Coffee', 'Milo']
+    element_name="drinks_order",
+    element_type="radio_buttons",
+    label_text="Drinks order",
+    values=["Tea", "Coffee", "Milo"],
 )
 manager.add_element(
-	element_name='message_box',
-	element_type='label',
+    element_name="message_box",
+    element_type="label",
 )
 manager.add_element(
-	element_name='progress_bar',
-	element_type='progress_bar',
-    label_text='Progress so far...',
+    element_name="progress_bar",
+    element_type="progress_bar",
+    label_text="Progress so far...",
 )
 manager.add_element(
-	element_name='start_button',
-	element_type='button',
-	hook_function=app.execute
+    element_name="start_button", element_type="button", hook_function=app.execute
 )
 manager.centre_elements()
 app.update_count()
