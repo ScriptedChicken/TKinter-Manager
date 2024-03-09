@@ -1,8 +1,10 @@
+from typing import List, Dict, Any
+
 class LayoutManager(object):
-    def __init__(self, root):
+    def __init__(self, root) -> None:
         self.root = root
 
-    def centre_elements(self, elements):
+    def centre_elements(self, elements) -> None:
         self.root.grid_columnconfigure(0, weight=1)
         i = 0
         for name, element in elements.items():
@@ -18,7 +20,7 @@ class LayoutManager(object):
 
             i += 1
 
-    def set_layout(self, layout_schema, elements_dict):
+    def set_layout(self, layout_schema: List[List], elements_dict: Dict[str,object]) -> None:
         for row_i, row in enumerate(layout_schema):
             for column_i, value in enumerate(row):
                 if value:
@@ -31,7 +33,7 @@ class LayoutManager(object):
             self.root.grid_rowconfigure(row_i, weight=1)
 
     @staticmethod
-    def _return_max_row_length(input_list):
+    def _return_max_row_length(input_list: List[List]):
         max_length = 0
         for row in input_list:
             row_length = len(row)

@@ -6,10 +6,11 @@ from .text_input_manager import TextInputManager
 from .layout_manager import LayoutManager
 from .progress_bar_manager import ProgressBarManager
 from .container_manager import ContainerManager
+from typing import Any, Union, List, Callable
 
 
 class TKinterManager(object):
-    def __init__(self, title, width=None, height=None):
+    def __init__(self, title: str, width: int=None, height: int=None) -> None:
         self.root = Tk()
         self.root.title(title)
         if width and height:
@@ -17,17 +18,17 @@ class TKinterManager(object):
         self.elements_dict = {}
         self.layout_manager = LayoutManager(self.root)
 
-    def run(self):
+    def run(self) -> None:
         self.root.mainloop()
 
     def add_element(
         self,
-        element_name,
-        element_type,
-        label_text=None,
-        hook_function=None,
-        values=None,
-    ):
+        element_name: str,
+        element_type: Any,
+        label_text: str=None,
+        hook_function: Union[Callable, None]=None,
+        values: List[str]=None,
+    ) -> None:
         is_duplicate_element = element_name in self.elements_dict
         if is_duplicate_element:
             raise Exception(
@@ -38,7 +39,7 @@ class TKinterManager(object):
         label = LabelManager(self.root, label_name)
 
         if label_text:
-            label.set(label_text)
+            label.set_text(label_text)
             self.elements_dict[label_name] = label
 
         if element_type == "button":
@@ -61,11 +62,11 @@ class TKinterManager(object):
 
         self.elements_dict[element_name] = element
 
-    def get_element(self, element_name):
+    def get_element(self, element_name: str) -> Any:
         return self.elements_dict[element_name]
 
-    def centre_elements(self):
+    def centre_elements(self) -> None:
         self.layout_manager.centre_elements(self.elements_dict)
 
-    def set_layout(self, layout_schema):
+    def set_layout(self, layout_schema: List[List[str]]) -> None:
         self.layout_manager.set_layout(layout_schema, self.elements_dict)
