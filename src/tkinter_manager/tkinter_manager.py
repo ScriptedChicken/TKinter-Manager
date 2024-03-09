@@ -73,10 +73,6 @@ class TKinterManager(object):
         for name, command, shortcut in group_config:
             menu.add_command(label=name, command=command)
             if shortcut:
-
-                # TODO: remove this, only for debugging
-                print(shortcut)
-
                 self.root.bind_all(shortcut, command)
 
         self.menubar.add_cascade(label=group_name, underline=0, menu=menu)
