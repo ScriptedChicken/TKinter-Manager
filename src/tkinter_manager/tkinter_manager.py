@@ -80,6 +80,7 @@ class TKinterManager(object):
 
     def remove_menu(self) -> None:
         self.root.config(menu=None)
+        self.menubar = None
 
     def get_element(self, element_name: str) -> Any:
         return self.elements_dict[element_name]

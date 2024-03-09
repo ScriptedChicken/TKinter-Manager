@@ -4,6 +4,11 @@ Need a GUI quickly? The TKinter Manager can help, reducing the amount of time yo
 ## Installation
 Clone the repo - no extra libraries needed.
 
+## New in version 0.3
+- Added menu functionality.
+- Added mouse and keyboard event binding.
+- Added type hinting.
+
 ## Usage
 To create a new TKinter Manager instance:
 ```
@@ -123,6 +128,87 @@ manager.add_element(
 progress_bar_label = manager.get_element(f"{name}_label")
 ```
 
+### Binding Shortcuts
+Just like in TKinter, events can be bound globally or to certain widgets. The available events are:
+- Keyboard events (AKA keyboard shortcuts)
+- Mouse clicks
+- Window resizing
+
+**Keyboard events**  
+The `keyboard()` command takes key names or lower-case characters and returns the TKinter bind notation.
+
+```
+from bindings import keyboard
+
+# returns '<Control-o>'
+keyboard('Control', 'o')
+
+# returns '<Control-Shift-f>'
+keyboard('Control', 'Shift', 'f')
+
+# returns '<Shift>'
+keyboard('Shift')
+```
+
+**Mouse events**   
+Mouse events currently support one event - `click()`.
+
+Takes:
+- `button` ['Any', 'Left', 'Right', 'Middle', 'ScrollUp', 'ScrollDown']
+- `on` ['Start', 'End', None]
+- `repititions` [1, 2, 3]
+```
+from bindings import click
+
+# returns '<Any>'
+click()
+
+# returns '<Button-0>'
+click('Left')
+
+# returns '<Double-Button-1>'
+click('Left', repititions=2)
+
+# returns '<ButtonPress-1>'
+click('Left', on='Start')
+
+# returns '<Triple-Button-2>'
+click('Middle', repititions=3)
+
+# returns '<ButtonRelease-3>'
+click('Right', on='End')
+```
+
+**Window Resizing**    
+```
+from bindings import resized
+
+# returns '<Configure>'
+resized()
+```
+
+### Menu
+
+**Adding a menu:**   
+Done via the `add_menu_group()` method. Each row in a group config is a Tuple of (Command Name, Command Function, Shortcut).
+
+If a menu group is added and a menu bar doesn't exist then a menu bar will automatically be created.
+
+Any shortcut that is specified will be bound globally.
+```
+group_config = [
+	('New', create_file, keyboard('Control', 'n')),
+	('Open', open_file, keyboard('Control', 'o')),
+	('Save', save_file, keyboard('Control', 's')),
+	('About', display_about, None),
+]
+manager.add_menu_group(group_name='File', group_config=group_config)
+```
+
+![Menu example code output](/img/menu.png)
+
+**Removing a menu:**    
+`manager.remove_menu()`
 
 ### Setting the layout
 To centre all added elements, use the `manager.centre_elements()` method. This also makes the elements reactive when resizing the window.
