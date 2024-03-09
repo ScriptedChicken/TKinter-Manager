@@ -1,4 +1,4 @@
-from tkinter import Tk
+from tkinter import Tk, Menu
 from .label_manager import LabelManager
 from .button_manager import ButtonManager
 from .dropdown_manager import DropdownManager
@@ -6,7 +6,7 @@ from .text_input_manager import TextInputManager
 from .layout_manager import LayoutManager
 from .progress_bar_manager import ProgressBarManager
 from .container_manager import ContainerManager
-from typing import Any, Union, List, Callable
+from typing import Any, Union, List, Callable, Tuple
 
 
 class TKinterManager(object):
@@ -17,6 +17,7 @@ class TKinterManager(object):
             self.root.geometry(f"{width}x{height}")
         self.elements_dict = {}
         self.layout_manager = LayoutManager(self.root)
+        self.menubar = None
 
     def run(self) -> None:
         self.root.mainloop()
@@ -61,6 +62,26 @@ class TKinterManager(object):
             element = ContainerManager(self.root, element_name, element_type, values)
 
         self.elements_dict[element_name] = element
+
+    def add_menu_group(self, group_name: str, group_config=List[Tuple[str, Callable, str]]) -> None:
+        if not self.menubar:
+            self.menubar = Menu(self.root)
+
+        menu = Menu(self.menubar, tearoff=0)
+        for name, command, shortcut in group_config:
+            menu.add_command(label=name, command=command)
+            if shortcut:
+
+                # TODO: remove this, only for debugging
+                print(shortcut)
+
+                self.root.bind_all(shortcut, command)
+        
+        self.menubar.add_cascade(label=group_name, underline=0, menu=menu)
+        self.root.config(menu=self.menubar)
+
+    def remove_menu(self) -> None:
+        self.root.config(menu=None)
 
     def get_element(self, element_name: str) -> Any:
         return self.elements_dict[element_name]

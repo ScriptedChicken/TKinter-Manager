@@ -5,3 +5,6 @@ class TKinterElement(object):
         self.name = element_name
         self.element_object = element_object
         self.hook = hook
+
+    def bind(self, event: str, command: Callable) -> None:
+        self.element_object.bind(event, command)
