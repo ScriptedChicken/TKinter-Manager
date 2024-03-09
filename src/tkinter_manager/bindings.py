@@ -1,65 +1,14 @@
 from typing import Optional
+from json import load
+from os.path import join, dirname
 
-button_lookup = {
-    "Left": "-1",
-    "Middle": "-2",
-    "Right": "-3",
-    "ScrollUp": "-4",
-    "ScrollDown": "-5",
-}
-
-repetitions_lookup = {
-    1: "",
-    2: "Double-",
-    3: "Triple-",
-}
-
-on_lookup = {
-    "Start": "Press",
-    "End": "Release",
-}
-
-special_keys = [
-    "Cancel",
-    "BackSpace",
-    "Tab",
-    "Return",
-    "Shift_L",
-    "Control_L",
-    "Alt_L",
-    "Pause",
-    "Caps_Lock",
-    "Escape",
-    "Prior",
-    "Next",
-    "End",
-    "Home",
-    "Left",
-    "Up",
-    "Right",
-    "Down",
-    "Print",
-    "Insert",
-    "Delete",
-    "F1",
-    "F2",
-    "F3",
-    "F4",
-    "F5",
-    "F6",
-    "F7",
-    "F8",
-    "F9",
-    "F10",
-    "F11",
-    "F12",
-    "Num_Lock",
-    "Scroll_Lock",
-    "Any",
-    "Control",
-    "Shift",
-    "Alt",
-]
+with open(join(dirname(__file__), "config", "resources.json"), "r") as file:
+    resources = load(file)
+    special_keys = resources.get("special_keys")
+    on_lookup = resources.get("on_lookup")
+    button_lookup = resources.get("button_lookup")
+    repetitions_lookup = resources.get("repetitions_lookup")
+    del resources
 
 
 def return_tag(string: str) -> str:
@@ -108,7 +57,7 @@ def click(
             "Number of click repetitions must be greater than 0 and less than 4."
         )
     else:
-        bind_string = repetitions_lookup[repetitions] + bind_string
+        bind_string = repetitions_lookup[str(repetitions)] + bind_string
 
     return return_tag(bind_string)
 
