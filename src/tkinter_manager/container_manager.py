@@ -5,8 +5,11 @@ from .checkbox_manager import CheckboxManager
 from .radio_button_manager import RadioButtonManager
 from typing import List, Union
 
+
 class ContainerManager(TKinterElement):
-    def __init__(self, root, element_name: str, children_type, values: List[str]) -> None:
+    def __init__(
+        self, root, element_name: str, children_type, values: List[str]
+    ) -> None:
         self.root = root
         self.children_type = children_type
         self.children_dict = {}

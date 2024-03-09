@@ -1,5 +1,6 @@
 from typing import List, Dict, Any
 
+
 class LayoutManager(object):
     def __init__(self, root) -> None:
         self.root = root
@@ -20,7 +21,9 @@ class LayoutManager(object):
 
             i += 1
 
-    def set_layout(self, layout_schema: List[List], elements_dict: Dict[str,object]) -> None:
+    def set_layout(
+        self, layout_schema: List[List], elements_dict: Dict[str, object]
+    ) -> None:
         for row_i, row in enumerate(layout_schema):
             for column_i, value in enumerate(row):
                 if value:

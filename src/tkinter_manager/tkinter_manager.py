@@ -10,7 +10,7 @@ from typing import Any, Union, List, Callable, Tuple
 
 
 class TKinterManager(object):
-    def __init__(self, title: str, width: int=None, height: int=None) -> None:
+    def __init__(self, title: str, width: int = None, height: int = None) -> None:
         self.root = Tk()
         self.root.title(title)
         if width and height:
@@ -26,9 +26,9 @@ class TKinterManager(object):
         self,
         element_name: str,
         element_type: Any,
-        label_text: str=None,
-        hook_function: Union[Callable, None]=None,
-        values: List[str]=None,
+        label_text: str = None,
+        hook_function: Union[Callable, None] = None,
+        values: List[str] = None,
     ) -> None:
         is_duplicate_element = element_name in self.elements_dict
         if is_duplicate_element:
@@ -63,7 +63,9 @@ class TKinterManager(object):
 
         self.elements_dict[element_name] = element
 
-    def add_menu_group(self, group_name: str, group_config=List[Tuple[str, Callable, str]]) -> None:
+    def add_menu_group(
+        self, group_name: str, group_config=List[Tuple[str, Callable, str]]
+    ) -> None:
         if not self.menubar:
             self.menubar = Menu(self.root)
 
@@ -76,7 +78,7 @@ class TKinterManager(object):
                 print(shortcut)
 
                 self.root.bind_all(shortcut, command)
-        
+
         self.menubar.add_cascade(label=group_name, underline=0, menu=menu)
         self.root.config(menu=self.menubar)
 
