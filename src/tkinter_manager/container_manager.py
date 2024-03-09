@@ -1,26 +1,21 @@
 from .tkinter_element import TKinterElement
 from tkinter.ttk import Frame
-from tkinter import StringVar, Tk
+from tkinter import StringVar
 from .checkbox_manager import CheckboxManager
 from .radio_button_manager import RadioButtonManager
-from datatypes import InputValue
-from typing import List
-
 
 class ContainerManager(TKinterElement):
-    def __init__(
-        self, root: Tk, element_name: str, children_type: str, values: List[InputValue]
-    ) -> None:
+    def __init__(self, root, element_name, children_type, values):
         self.root = root
         self.children_type = children_type
         self.children_dict = {}
         TKinterElement.__init__(self, element_name, Frame(root))
         self.set(values)
 
-    def get(self, checkbox_name: str) -> None:
+    def get(self, checkbox_name):
         return self.children_dict[checkbox_name]
-
-    def set(self, values: List[InputValue]) -> None:
+    
+    def set(self, values):
         if self.children_type == "checkboxes":
             for value in values:
                 child_name = f"{value}_checkbox"
@@ -33,17 +28,15 @@ class ContainerManager(TKinterElement):
             self.state = StringVar()
             for value in values:
                 child_name = f"{value}_radio_button"
-                child = RadioButtonManager(
-                    self.element_object, child_name, value, self.state
-                )
+                child = RadioButtonManager(self.element_object, child_name, value, self.state)
 
                 self.children_dict[value] = child
                 child.element_object.pack()
 
-    def get_children_names(self) -> None:
+    def get_children_names(self):
         return list(self.children_dict.keys())
-
-    def get_selected(self) -> None:
+    
+    def get_selected(self):
         if self.children_type == "checkboxes":
             selected_values = []
             for child_name, child in self.children_dict.items():
