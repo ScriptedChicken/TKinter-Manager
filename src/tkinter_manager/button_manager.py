@@ -14,4 +14,8 @@ class ButtonManager(TKinterElement):
         self.set_hook(hook_function)
 
     def set_hook(self, input_function: Union[Callable, None]) -> None:
+        """Sets a function that fires when the button is clicked.
+
+        Args:
+            input_function: The function to be fired on click."""
         self.element_object.configure(command=input_function)

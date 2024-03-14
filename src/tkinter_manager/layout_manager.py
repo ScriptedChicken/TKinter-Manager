@@ -2,10 +2,20 @@ from typing import List, Dict, Any
 
 
 class LayoutManager(object):
+    """Controls the layout of a TKinter Manager application.
+
+    Args:
+        root: The root of the TKinter Manager application. This is defined automatically by the TKinterManager() class.
+    """
+
     def __init__(self, root) -> None:
         self.root = root
 
-    def centre_elements(self, elements) -> None:
+    def centre_elements(self, elements: Any) -> None:
+        """Centres all elements in a 1 by n grid.
+
+        Args:
+            elements: Any manager element created by a TkinterManager() object."""
         self.root.grid_columnconfigure(0, weight=1)
         i = 0
         for name, element in elements.items():
@@ -24,6 +34,12 @@ class LayoutManager(object):
     def set_layout(
         self, layout_schema: List[List], elements_dict: Dict[str, object]
     ) -> None:
+        """Sets the layout in a verbose grid.
+
+        Args:
+            layout_schema: A nested list of element IDs.
+            elements_dict: An {element ID: element} lookup dictionary.
+        """
         for row_i, row in enumerate(layout_schema):
             for column_i, value in enumerate(row):
                 if value:
@@ -37,6 +53,9 @@ class LayoutManager(object):
 
     @staticmethod
     def _return_max_row_length(input_list: List[List]):
+        """Returns the maximum length of rows in a nested list.
+
+        Args: A nested list."""
         max_length = 0
         for row in input_list:
             row_length = len(row)

@@ -6,10 +6,18 @@ from .text_input_manager import TextInputManager
 from .layout_manager import LayoutManager
 from .progress_bar_manager import ProgressBarManager
 from .container_manager import ContainerManager
-from typing import Any, Union, List, Callable, Tuple
+from typing import Any, Union, List, Callable, Tuple, Literal, Optional
 
 
 class TKinterManager(object):
+    """The main class in the TKinter Manager. Controls all of the high-level creation, retrieval, and execution of the application.
+
+    Args:
+        title: The title of the application.
+        width: The width of the application.
+        height: The height of the application.
+    """
+
     def __init__(self, title: str, width: int = None, height: int = None) -> None:
         self.root = Tk()
         self.root.title(title)
@@ -20,16 +28,34 @@ class TKinterManager(object):
         self.menubar = None
 
     def run(self) -> None:
+        """Runs the application."""
         self.root.mainloop()
 
     def add_element(
         self,
         element_name: str,
-        element_type: Any,
-        label_text: str = None,
-        hook_function: Union[Callable, None] = None,
-        values: List[str] = None,
+        element_type: Literal[
+            "button",
+            "dropdown",
+            "text_input",
+            "progress_bar",
+            "label",
+            "checkboxes",
+            "radio_buttons",
+        ],
+        label_text: Optional[str] = None,
+        hook_function: Optional[Callable] = None,
+        values: Optional[str] = None,
     ) -> None:
+        """Allows a GUI element to be added to the application.
+
+        Args:
+            element_name: The name of the element. Must be unique.
+            element_type: The type of the element.
+            label_text: Label text, if desired.
+            hook_function: The function to apply to 'button' elements.
+            values: A list of value to apply to 'checkboxes' or 'radio_buttons' elements.
+        """
         is_duplicate_element = element_name in self.elements_dict
         if is_duplicate_element:
             raise Exception(
@@ -66,6 +92,12 @@ class TKinterManager(object):
     def add_menu_group(
         self, group_name: str, group_config=List[Tuple[str, Callable, str]]
     ) -> None:
+        """Adds a menu if one doesn't exist already. Adds a menu group.
+
+        Args:
+            group_name: The name of the menu group.
+            group_config: A list of (command_name:str, command:Callable, shortcut:Optional[str]) to add to the menu group.
+        """
         if not self.menubar:
             self.menubar = Menu(self.root)
 
@@ -79,14 +111,21 @@ class TKinterManager(object):
         self.root.config(menu=self.menubar)
 
     def remove_menu(self) -> None:
+        """Removes a menu and all of its groups from the application."""
         self.root.config(menu=None)
         self.menubar = None
 
     def get_element(self, element_name: str) -> Any:
+        """Returns an element by name."""
         return self.elements_dict[element_name]
 
     def centre_elements(self) -> None:
+        """Centres all elements."""
         self.layout_manager.centre_elements(self.elements_dict)
 
     def set_layout(self, layout_schema: List[List[str]]) -> None:
+        """Sets a layout explicitly by using a layout schema.
+
+        Args:
+            layout_schema: A nested list of element names."""
         self.layout_manager.set_layout(layout_schema, self.elements_dict)

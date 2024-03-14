@@ -4,6 +4,14 @@ from tkinter import StringVar
 
 
 class CheckboxManager(TKinterElement):
+    """Controls a checkbox in a TKinter Manager application.
+
+    Args:
+        root: The root of the TKinter Manager application. This is defined automatically by the TKinterManager() class.
+        element_name: The unique name of the element.
+        value: The value to assign to the checkbox.
+    """
+
     def __init__(self, root, element_name: str, value: str) -> None:
         self.state = StringVar()
         TKinterElement.__init__(

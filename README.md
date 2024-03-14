@@ -4,6 +4,9 @@ Need a GUI quickly? The TKinter Manager can help, reducing the amount of time yo
 ## Installation
 Clone the repo - no extra libraries needed.
 
+## Docs:
+[Read the docs here.](https://scriptedchicken.github.io/TKinter-Manager/)
+
 ## New in version 0.3
 - Added menu functionality.
 - Added mouse and keyboard event binding.

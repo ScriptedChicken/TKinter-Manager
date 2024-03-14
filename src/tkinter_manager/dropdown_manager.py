@@ -9,7 +9,9 @@ class DropdownManager(TKinterElement):
         self.set_values(input_values)
 
     def set_values(self, input_values: List[str]) -> None:
+        """Sets the values in the dropdown."""
         self.element_object["values"] = input_values
 
     def get_values(self) -> str:
+        """Sets the selected value in the dropdown."""
         return self.element_object.get()
