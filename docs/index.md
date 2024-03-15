@@ -1,4 +1,4 @@
-# TKinter Manger
+# TKinter Manager
 
 [Bindings](bindings.md)        
 [Button Manager](button_manager.md)        
